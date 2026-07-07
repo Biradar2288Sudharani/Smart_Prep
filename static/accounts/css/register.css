@@ -824,55 +824,173 @@ select:hover{
     font-weight: 500;
 
 }
-/* Password and confirm password validation css */
-.password-rules{
+/* Passwoed and confirm password css */
+/* ==========================================
+        PASSWORD SECTION
+========================================== */
 
-    margin-top:10px;
+.password-box{
+
+    position: relative;
+
+}
+
+
+/* ==========================================
+        SHOW / HIDE PASSWORD ICON
+========================================== */
+
+.password-box i{
+
+    position: absolute;
+
+    right: 18px;
+
+    top: 52px;
+
+    cursor: pointer;
+
+    color: #6b7280;
+
+    font-size: 18px;
+
+    transition: .3s;
 
 }
 
-.password-rules p{
+.password-box i:hover{
 
-    margin:4px 0;
-
-    font-size:13px;
+    color: #2563EB;
 
 }
+
+
+/* ==========================================
+        PASSWORD STRENGTH BAR
+========================================== */
 
 .strength-container{
 
-    width:100%;
+    width: 100%;
 
-    height:8px;
+    height: 8px;
 
-    background:#ddd;
+    background: #E5E7EB;
 
-    border-radius:20px;
+    border-radius: 30px;
 
-    margin-top:10px;
+    margin-top: 12px;
 
-    overflow:hidden;
+    overflow: hidden;
 
 }
 
 #strength-bar{
 
-    width:0%;
+    width: 0%;
 
-    height:100%;
+    height: 100%;
 
-    background:red;
+    border-radius: 30px;
 
-    transition:.3s;
+    transition: all .4s ease;
 
 }
 
+
+/* ==========================================
+        PASSWORD STRENGTH TEXT
+========================================== */
+
 #strength-text{
 
-    display:block;
+    display: block;
 
-    margin-top:6px;
+    margin-top: 8px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+}
+
+
+/* ==========================================
+        CONFIRM PASSWORD MESSAGE
+========================================== */
+
+#error-message,
+#confirm-error{
+
+    display: block;
+
+    margin-top: 8px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+}
+
+
+/* ==========================================
+        STRENGTH COLORS
+========================================== */
+
+.weak{
+
+    background: #EF4444;
+
+    color: #EF4444;
+
+}
+
+.medium{
+
+    background: #F59E0B;
+
+    color: #F59E0B;
+
+}
+
+.strong{
+
+    background: #22C55E;
+
+    color: #22C55E;
+
+}
+/* Hide and show button extra css */
+.password-box i {
+
+    transition: color 0.3s ease, transform 0.3s ease;
+
+}
+
+.password-box i:hover {
+
+    color: #2563EB;
+
+    transform: scale(1.1);
+
+}
+/* Django register page validation css */
+.alert{
+
+    background:#DCFCE7;
+
+    color:#166534;
+
+    padding:14px;
+
+    border-radius:10px;
+
+    margin-bottom:20px;
 
     font-weight:600;
+
+    text-align:center;
+
+    border:1px solid #BBF7D0;
 
 }

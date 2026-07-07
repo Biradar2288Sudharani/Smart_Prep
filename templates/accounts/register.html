@@ -1,69 +1,54 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block title %}
 Create Account | Smart Prep
 {% endblock %}
-
 {% block css %}
 <link rel="stylesheet" href="{% static 'accounts/css/register.css' %}">
 {% endblock %}
-
 {% block content %}
 
 <div class="register-container">
-
     <div class="register-card">
-
         <h2>Create Your Account</h2>
-
-        <p class="subtitle">
-            Join Smart Prep and start your interview journey.
-        </p>
-
+        <p class="subtitle">Join Smart Prep and start your interview journey.</p>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
         <form method="POST" enctype="multipart/form-data">
-
             {% csrf_token %}
 
             <!-- ===========================
                  PROFILE PHOTO
             ============================ -->
-
             <div class="profile-upload">
-
-    <label for="profile_photo">
-
-        <img
+            <label for="profile_photo">
+            <img
             src="{% static 'accounts/images/default-profile.png' %}"
             id="preview-image"
             alt="Profile Photo">
-
-        <span>Upload Profile Photo</span>
-
-    </label>
-
-    <input
-        type="file"
-        id="profile_photo"
-        name="profile_photo"
-        accept="image/*"
-        hidden>
-
-    <p id="upload-message"></p>
-
-</div>
+            <span>Upload Profile Photo</span>
+            </label>
+            <input
+                type="file"
+                id="profile_photo"
+                name="profile_photo"
+                accept="image/*"
+                hidden>
+                <p id="upload-message"></p>
+            </div>
 
 
             <!-- ===========================
                  FIRST & LAST NAME
             ============================ -->
-
             <div class="row">
-
                 <div class="form-group">
-
                     <label>First Name</label>
-
                     <input
                         type="text"
                         id="first_name"
@@ -71,15 +56,11 @@ Create Account | Smart Prep
                         placeholder="Enter first name"
                         autocomplete="off"
                         required>
-
                     <small id="first-name-error" class="error-message"></small>
-
                 </div>
 
                 <div class="form-group">
-
                     <label>Last Name</label>
-
                     <input
                         type="text"
                         id="last_name"
@@ -87,11 +68,8 @@ Create Account | Smart Prep
                         placeholder="Enter last name"
                         autocomplete="off"
                         required>
-
                     <small id="last-name-error" class="error-message"></small>
-
                 </div>
-
             </div>
 
 
@@ -100,27 +78,23 @@ Create Account | Smart Prep
             ============================ -->
 
             <div class="row">
-
                 <div class="form-group">
-
                     <label>Email Address</label>
-
                     <input
                         type="email"
+                        id="email"
                         name="email"
                         placeholder="Enter email"
+                        maxlength="100"
+                        autocomplete="off"
                         required>
-
+                    <small id="email-error"
+                        class="error-message"></small>
                 </div>
 
                 <div class="form-group">
-
                     <label>Mobile Number</label>
-
                     <div class="mobile-input">
-
-                        <!-- <span class="country-code">🇮🇳 +91</span> -->
-
                         <input
                             type="text"
                             id="mobile_number"
@@ -129,13 +103,9 @@ Create Account | Smart Prep
                             maxlength="10"
                             autocomplete="off"
                             required>
-
                     </div>
-
                     <small id="mobile-error" class="error-message"></small>
-
                 </div>
-
             </div>
 
 
@@ -143,72 +113,62 @@ Create Account | Smart Prep
                  PASSWORD
             ============================ -->
 
-            <div class="row">
 
-                <div class="form-group password-box">
+<div class="row">
 
-                    <label>Password</label>
+<!-- Password -->
 
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Enter password"
-                        maxlength="20"
-                        autocomplete="off"
-                        required>
+<div class="form-group password-box">
 
-                    <i class="fa-solid fa-eye"
-                    id="togglePassword"></i>
+    <label>Password</label>
 
-                    <small id="password-error" class="error-message"></small>
+    <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Enter password"
+        maxlength="20"
+        autocomplete="off"
+        required>
 
-                <div class="password-rules">
+    <i class="fa-solid fa-eye"
+       id="togglePassword"></i>
 
-                    <!-- <p id="rule-uppercase">❌ First letter must be uppercase</p>
+    <div class="strength-container">
 
-                    <p id="rule-lowercase">❌ At least one lowercase letter</p>
+        <div id="strength-bar"></div>
 
-                    <p id="rule-number">❌ At least one number</p>
+    </div>
 
-                    <p id="rule-special">❌ At least one special character</p>
+    <small id="strength-text"></small>
 
-                    <p id="rule-length">❌ Minimum 8 characters</p> -->
-
-                </div>
-
-                    <div class="strength-container">
-
-                        <div id="strength-bar"></div>
-
-                    </div>
-
-                    <small id="strength-text"></small>
-
-                </div>
+</div>
 
 
-                <div class="form-group password-box">
 
-                    <label>Confirm Password</label>
+<!-- Confirm Password -->
 
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        name="confirm_password"
-                        placeholder="Confirm password"
-                        maxlength="20"
-                        autocomplete="off"
-                        required>
+<div class="form-group password-box">
 
-                    <i class="fa-solid fa-eye"
-                    id="toggleConfirmPassword"></i>
+    <label>Confirm Password</label>
 
-                    <small id="confirm-error" class="error-message"></small>
+    <input
+        type="password"
+        id="confirmPassword"
+        name="confirm_password"
+        placeholder="Confirm password"
+        maxlength="20"
+        autocomplete="off"
+        required>
 
-        </div>
+    <i class="fa-solid fa-eye"
+       id="toggleConfirmPassword"></i>
 
-                    </div>
+    <small id="confirm-error"
+           class="error-message"></small>
+
+</div>
+</div>
 
 
             <!-- ===========================
@@ -244,15 +204,21 @@ Create Account | Smart Prep
 
             <div class="form-group">
 
-                <label>Security Answer</label>
+    <label>Security Answer</label>
 
-                <input
-                    type="text"
-                    name="security_answer"
-                    placeholder="Enter security answer"
-                    required>
+    <input
+        type="text"
+        id="security_answer"
+        name="security_answer"
+        placeholder="Enter security answer"
+        maxlength="50"
+        autocomplete="off"
+        required>
 
-            </div>
+    <small id="security-answer-error"
+           class="error-message"></small>
+
+</div>
 
 
             <!-- ===========================

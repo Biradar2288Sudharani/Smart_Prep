@@ -136,125 +136,311 @@ mobileInput.addEventListener("input", function () {
     }
 
 });
+
 // ==========================================
-// PASSWORD VALIDATION
+// PASSWORD VALIDATION & STRENGTH METER
 // ==========================================
+const password = document.getElementById("password");
+const strengthBar = document.getElementById("strength-bar");
+const strengthText = document.getElementById("strength-text");
 
-const password=document.getElementById("password");
-const confirmPassword=document.getElementById("confirmPassword");
+console.log(password);
+console.log(strengthBar);
+console.log(strengthText);
 
-const upper=document.getElementById("rule-uppercase");
-const lower=document.getElementById("rule-lowercase");
-const number=document.getElementById("rule-number");
-const special=document.getElementById("rule-special");
-const lengthRule=document.getElementById("rule-length");
 
-const strengthBar=document.getElementById("strength-bar");
-const strengthText=document.getElementById("strength-text");
+password.addEventListener("input", function () {
+    console.log("Password Validation Running...");
+    let value = this.value;
 
-const confirmError=document.getElementById("confirm-error");
+    // Remove all spaces automatically
+    value = value.replace(/\s/g, "");
 
-password.addEventListener("input",function(){
+    this.value = value;
 
-    let value=password.value;
-
-    value=value.replace(/\s/g,"");
-
-    password.value=value;
-
-    let score=0;
+    let score = 0;
 
     // First character uppercase
-    if(/^[A-Z]/.test(value)){
-        upper.innerHTML="✔ First letter must be uppercase";
+    if (/^[A-Z]/.test(value)) {
+
         score++;
-    }else{
-        upper.innerHTML="❌ First letter must be uppercase";
+
     }
 
-    // Lowercase
-    if(/[a-z]/.test(value)){
-        lower.innerHTML="✔ At least one lowercase letter";
+    // At least one lowercase
+    if (/[a-z]/.test(value)) {
+
         score++;
-    }else{
-        lower.innerHTML="❌ At least one lowercase letter";
+
     }
 
-    // Number
-    if(/[0-9]/.test(value)){
-        number.innerHTML="✔ At least one number";
+    // At least one number
+    if (/\d/.test(value)) {
+
         score++;
-    }else{
-        number.innerHTML="❌ At least one number";
+
     }
 
-    // Special Character
-    if(/[!@#$%^&*(),.?":{}|<>]/.test(value)){
-        special.innerHTML="✔ At least one special character";
+    // At least one special character
+    if (/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
+
         score++;
-    }else{
-        special.innerHTML="❌ At least one special character";
+
     }
 
-    // Length
-    if(value.length>=8){
-        lengthRule.innerHTML="✔ Minimum 8 characters";
+    // Minimum 8 characters
+    if (value.length >= 8) {
+
         score++;
-    }else{
-        lengthRule.innerHTML="❌ Minimum 8 characters";
-    }
-
-    // Strength Meter
-    if(score<=2){
-
-        strengthBar.style.width="35%";
-        strengthBar.style.background="red";
-        strengthText.innerHTML="Weak Password";
 
     }
 
-    else if(score==3 || score==4){
 
-        strengthBar.style.width="70%";
-        strengthBar.style.background="orange";
-        strengthText.innerHTML="Medium Password";
+    // Remove previous classes
+
+    strengthBar.classList.remove("weak", "medium", "strong");
+    strengthText.classList.remove("weak", "medium", "strong");
+
+
+    // Empty Password
+
+    if (value.length === 0) {
+
+        strengthBar.style.width = "0%";
+
+        strengthText.textContent = "";
+
+        return;
 
     }
 
-    else{
 
-        strengthBar.style.width="100%";
-        strengthBar.style.background="green";
-        strengthText.innerHTML="✔ Strong Password";
+    // Weak Password
 
-    }
+    strengthBar.className = "";
+strengthText.className = "";
+
+if (score <= 2) {
+
+    strengthBar.style.width = "35%";
+    strengthBar.style.background = "#EF4444";
+
+    strengthText.textContent = "Weak Password";
+    strengthText.style.color = "#EF4444";
+
+}
+else if (score <= 4) {
+
+    strengthBar.style.width = "70%";
+    strengthBar.style.background = "#F59E0B";
+
+    strengthText.textContent = "Medium Password";
+    strengthText.style.color = "#F59E0B";
+
+}
+else {
+
+    strengthBar.style.width = "100%";
+    strengthBar.style.background = "#22C55E";
+
+    strengthText.textContent = "Strong Password";
+    strengthText.style.color = "#22C55E";
+
+}
 
 });
 
 // ==========================================
 // CONFIRM PASSWORD
 // ==========================================
+const confirmPassword = document.getElementById("confirmPassword");
+const confirmError = document.getElementById("confirm-error");
 
-confirmPassword.addEventListener("input",function(){
+console.log(confirmPassword);
+console.log(confirmError);
 
-    if(confirmPassword.value===""){
+confirmPassword.addEventListener("input", function () {
 
-        confirmError.innerHTML="";
+    if (confirmPassword.value === "") {
 
-    }
-
-    else if(password.value===confirmPassword.value){
-
-        confirmError.style.color="green";
-        confirmError.innerHTML="✔ Password matched successfully.";
+        confirmError.innerHTML = "";
 
     }
 
-    else{
+    else if (password.value === confirmPassword.value) {
 
-        confirmError.style.color="red";
-        confirmError.innerHTML="❌ Passwords do not match.";
+        confirmError.style.color = "green";
+        confirmError.innerHTML = "✔ Password matched successfully.";
 
     }
+
+    else {
+
+        confirmError.style.color = "red";
+        confirmError.innerHTML = "❌ Passwords do not match.";
+
+    }
+
+});
+
+// ==========================================
+// SHOW / HIDE PASSWORD
+// ==========================================
+
+const togglePassword = document.getElementById("togglePassword");
+
+togglePassword.addEventListener("click", function () {
+
+    if (password.type === "password") {
+
+        password.type = "text";
+
+        this.classList.remove("fa-eye");
+        this.classList.add("fa-eye-slash");
+
+    } else {
+
+        password.type = "password";
+
+        this.classList.remove("fa-eye-slash");
+        this.classList.add("fa-eye");
+
+    }
+
+});
+
+
+// ==========================================
+// SHOW / HIDE CONFIRM PASSWORD
+// ==========================================
+
+const toggleConfirmPassword = document.getElementById("toggleConfirmPassword");
+
+toggleConfirmPassword.addEventListener("click", function () {
+
+    if (confirmPassword.type === "password") {
+
+        confirmPassword.type = "text";
+
+        this.classList.remove("fa-eye");
+        this.classList.add("fa-eye-slash");
+
+    } else {
+
+        confirmPassword.type = "password";
+
+        this.classList.remove("fa-eye-slash");
+        this.classList.add("fa-eye");
+
+    }
+
+});
+
+// ==========================================
+// SECURITY ANSWER VALIDATION
+// ==========================================
+
+const securityAnswer = document.getElementById("security_answer");
+const securityAnswerError = document.getElementById("security-answer-error");
+
+securityAnswer.addEventListener("input", function () {
+
+    // Allow only letters and spaces
+    this.value = this.value.replace(/[^a-zA-Z ]/g, "");
+
+    // Remove multiple spaces
+    this.value = this.value.replace(/\s{2,}/g, " ");
+
+    // Remove leading spaces
+    this.value = this.value.replace(/^\s+/, "");
+
+    if (this.value.trim() === "") {
+
+        securityAnswerError.textContent = "Security answer is required.";
+
+    }
+
+    else {
+
+        securityAnswerError.textContent = "";
+
+    }
+
+});
+
+
+// ==========================================
+// EMAIL VALIDATION
+// ==========================================
+
+const emailInput = document.getElementById("email");
+const emailError = document.getElementById("email-error");
+
+emailInput.addEventListener("input", function () {
+
+    // Remove leading and trailing spaces
+    this.value = this.value.trim();
+
+    const email = this.value.toLowerCase();
+
+    // Basic Email Format
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    // Allowed Top-Level Domains
+    const allowedTLDs = [
+        "com",
+        "in",
+        "org",
+        "net",
+        "edu",
+        "gov",
+        "co.in",
+        "ac.in",
+        "io",
+        "ai",
+        "me"
+    ];
+
+    if (email === "") {
+
+        emailError.textContent = "Email address is required.";
+
+        return;
+
+    }
+
+    // Check basic email format
+    if (!emailPattern.test(email)) {
+
+        emailError.textContent = "Enter a valid email address.";
+
+        return;
+
+    }
+
+    // Check allowed TLD
+    let validTLD = false;
+
+    for (let tld of allowedTLDs) {
+
+        if (email.endsWith("." + tld)) {
+
+            validTLD = true;
+            break;
+
+        }
+
+    }
+
+    if (!validTLD) {
+
+        emailError.textContent = "Email domain extension is not supported.";
+
+        return;
+
+    }
+
+    // Valid Email
+    emailError.textContent = "";
 
 });
