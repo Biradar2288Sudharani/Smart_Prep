@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<body style="margin:0;padding:0;background:#F8FAFC;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F8FAFC;padding:40px 20px;font-family:'Poppins','Segoe UI',Arial,sans-serif;">
+<tr>
+<td align="center">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:440px;background:#FFFFFF;border-radius:20px;box-shadow:0 12px 30px rgba(0,0,0,.08);">
+<tr>
+<td align="center" style="padding:36px 40px 0;">
+<span style="font-size:20px;font-weight:700;color:#1E293B;">Smart Prep</span>
+</td>
+</tr>
+<tr>
+<td align="center" style="padding:18px 40px 0;font-size:42px;line-height:1;">&#128231;</td>
+</tr>
+<tr>
+<td align="center" style="padding:14px 40px 0;font-size:22px;font-weight:700;color:#1E293B;">
+Verify your email
+</td>
+</tr>
+<tr>
+<td style="padding:16px 40px 0;font-size:15px;color:#64748B;line-height:1.7;">
+Hi {{ first_name }},<br><br>
+Thanks for registering with Smart Prep. Click the button below to verify your email address and activate your account.
+</td>
+</tr>
+<tr>
+<td align="center" style="padding:28px 40px 0;">
+<a href="{{ verify_url }}" style="display:inline-block;background:#2563EB;color:#FFFFFF;text-decoration:none;font-weight:600;font-size:15.5px;padding:14px 36px;border-radius:12px;">Verify Email</a>
+</td>
+</tr>
+<tr>
+<td align="center" style="padding:18px 40px 0;font-size:13px;font-weight:600;color:#EF4444;">
+This link expires in {{ expiry_minutes }} minutes.
+</td>
+</tr>
+<tr>
+<td style="padding:26px 40px 36px;font-size:12.5px;color:#94A3B8;line-height:1.6;">
+If the button doesn't work, copy and paste this link into your browser:<br>
+<a href="{{ verify_url }}" style="color:#2563EB;word-break:break-all;">{{ verify_url }}</a>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</body>
+</html>

@@ -434,6 +434,8 @@ width:90%;
 
     height:52px;
 
+    text-decoration:none;
+
     border:1px solid #CBD5E1;
 
     background:#ffffff;
@@ -476,5 +478,42 @@ width:90%;
     transform:translateY(-2px);
 
     box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+
+/* ===========================
+   LOGIN MESSAGES
+=========================== */
+
+.login-messages{
+
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+
+    margin-top:20px;
+
+}
+
+.login-message{
+
+    padding:13px 16px;
+    border-radius:12px;
+
+    font-size:14px;
+    font-weight:600;
+
+    background:#FEF2F2;
+    color:#991B1B;
+    border:1px solid #FECACA;
+
+}
+
+.login-message-success{
+
+    background:#DCFCE7;
+    color:#166534;
+    border-color:#BBF7D0;
 
 }

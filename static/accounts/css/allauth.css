@@ -1,0 +1,505 @@
+/* ==========================================================
+            SMART PREP - ALLAUTH (GOOGLE SIGN-IN) PAGES
+========================================================== */
+
+:root {
+
+    --primary-color: #2563EB;
+    --primary-hover: #1D4ED8;
+    --background-color: #F8FAFC;
+    --card-color: #FFFFFF;
+    --text-color: #1E293B;
+    --light-text: #64748B;
+    --border-color: #E2E8F0;
+    --success: #22C55E;
+    --danger: #EF4444;
+
+}
+
+* {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+
+}
+
+body {
+
+    background: var(--background-color);
+    color: var(--text-color);
+
+}
+
+/* ==========================================================
+                    SHELL / TOPBAR
+========================================================== */
+
+.allauth-shell {
+
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.allauth-topbar {
+
+    position: sticky;
+    top: 0;
+    z-index: 10;
+
+    background: rgba(255, 255, 255, .9);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border-color);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+
+    padding: 14px 28px;
+
+}
+
+.allauth-brand {
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 19px;
+
+}
+
+.allauth-brand img {
+
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    object-fit: cover;
+
+}
+
+.allauth-menu {
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+
+}
+
+.allauth-menu a {
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    text-decoration: none;
+    color: var(--light-text);
+    font-size: 13.5px;
+    font-weight: 600;
+
+    padding: 8px 14px;
+    border-radius: 30px;
+
+    transition: .25s;
+
+}
+
+.allauth-menu a:hover {
+
+    background: #EFF6FF;
+    color: var(--primary-color);
+
+}
+
+.allauth-menu a.allauth-menu-cta {
+
+    background: var(--primary-color);
+    color: #fff;
+
+}
+
+.allauth-menu a.allauth-menu-cta:hover {
+
+    background: var(--primary-hover);
+    color: #fff;
+
+}
+
+/* ==========================================================
+                    MAIN / CARD
+========================================================== */
+
+.allauth-main {
+
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 20px;
+
+}
+
+.allauth-messages {
+
+    width: 100%;
+    max-width: 440px;
+    margin-bottom: 18px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.allauth-message {
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    background: #DCFCE7;
+    color: #166534;
+    border: 1px solid #BBF7D0;
+
+    padding: 13px 16px;
+    border-radius: 12px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+}
+
+.allauth-message i {
+
+    color: var(--success);
+    font-size: 16px;
+
+}
+
+.allauth-message-error,
+.allauth-message-warning {
+
+    background: #FEF2F2;
+    color: #991B1B;
+    border-color: #FECACA;
+
+}
+
+.allauth-message-error i,
+.allauth-message-warning i {
+
+    color: var(--danger);
+
+}
+
+.allauth-card {
+
+    width: 100%;
+    max-width: 440px;
+
+    background: var(--card-color);
+    border-radius: 20px;
+    padding: 40px;
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .08);
+
+    animation: allauthCardIn .4s ease;
+
+}
+
+@keyframes allauthCardIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+/* ==========================================================
+                    TYPOGRAPHY
+========================================================== */
+
+.allauth-card h1 {
+
+    font-size: 26px;
+    color: var(--text-color);
+    margin-bottom: 12px;
+
+}
+
+.allauth-card h2 {
+
+    font-size: 20px;
+    color: var(--text-color);
+    margin-bottom: 14px;
+
+}
+
+.allauth-card > p:first-of-type {
+
+    color: var(--light-text);
+    margin-bottom: 24px;
+
+}
+
+.allauth-card p {
+
+    color: var(--light-text);
+    font-size: 14.5px;
+
+}
+
+.allauth-card section {
+
+    margin-bottom: 26px;
+
+}
+
+.allauth-card section:last-child {
+
+    margin-bottom: 0;
+
+}
+
+/* ==========================================================
+                    FORMS
+========================================================== */
+
+.allauth-card form {
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 6px;
+
+}
+
+.allauth-card form > p {
+
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+
+}
+
+.allauth-card label {
+
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-color);
+
+}
+
+.allauth-card input:not([type="checkbox"]):not([type="radio"]),
+.allauth-card textarea,
+.allauth-card select {
+
+    width: 100%;
+    height: 50px;
+
+    padding: 0 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+
+    outline: none;
+    font-size: 15px;
+    background: #fff;
+    color: var(--text-color);
+
+    transition: all .3s ease;
+
+}
+
+.allauth-card textarea {
+
+    height: auto;
+    padding: 14px 16px;
+    resize: vertical;
+
+}
+
+.allauth-card input:hover,
+.allauth-card textarea:hover,
+.allauth-card select:hover {
+
+    border-color: var(--primary-color);
+
+}
+
+.allauth-card input:focus,
+.allauth-card textarea:focus,
+.allauth-card select:focus {
+
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, .15);
+
+}
+
+.allauth-card input[type="checkbox"],
+.allauth-card input[type="radio"] {
+
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+
+}
+
+.allauth-card form > p:has(input[type="checkbox"]),
+.allauth-card form > p:has(input[type="radio"]) {
+
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.allauth-card form > p:has(input[type="checkbox"]) label,
+.allauth-card form > p:has(input[type="radio"]) label {
+
+    margin-bottom: 0;
+    font-weight: 500;
+
+}
+
+.allauth-card form > p > span {
+
+    display: block;
+    margin-top: 6px;
+    font-size: 12.5px;
+    color: var(--light-text);
+
+}
+
+/* ==========================================================
+                    BUTTONS / LINKS
+========================================================== */
+
+.allauth-card button,
+.allauth-card form a[href] {
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 50px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+    color: #fff;
+    text-decoration: none;
+
+    font-size: 15.5px;
+    font-weight: 600;
+    cursor: pointer;
+
+    transition: .3s;
+
+}
+
+.allauth-card button:hover,
+.allauth-card form a[href]:hover {
+
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(37, 99, 235, .28);
+
+}
+
+.allauth-card a {
+
+    color: var(--primary-color);
+    font-weight: 600;
+
+}
+
+.allauth-card > p a,
+.allauth-card ul a {
+
+    text-decoration: none;
+
+}
+
+.allauth-card > p a:hover,
+.allauth-card ul a:hover {
+
+    text-decoration: underline;
+
+}
+
+/* ==========================================================
+                    LISTS (provider list / panel actions)
+========================================================== */
+
+.allauth-card ul {
+
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.allauth-card ul li {
+
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+
+}
+
+.allauth-card ul li a {
+
+    text-decoration: none;
+    font-weight: 600;
+
+}
+
+.allauth-card hr {
+
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 22px 0;
+
+}
+
+/* ==========================================================
+                    RESPONSIVE
+========================================================== */
+
+@media (max-width: 520px) {
+
+    .allauth-topbar {
+
+        justify-content: center;
+        text-align: center;
+
+    }
+
+    .allauth-card {
+
+        padding: 28px 22px;
+        border-radius: 16px;
+
+    }
+
+}

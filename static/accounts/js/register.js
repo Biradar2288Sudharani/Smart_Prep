@@ -1,38 +1,79 @@
 // ======================================
 // SMART PREP
-// Profile Photo Preview
-// ======================================
+// ==========================================
+// PROFILE PHOTO PREVIEW
+// ==========================================
 
 const profileInput = document.getElementById("profile_photo");
 const previewImage = document.getElementById("preview-image");
 const uploadMessage = document.getElementById("upload-message");
+const profilePhotoError = document.getElementById("profile-photo-error");
+
+
+let uploadMessageTimer = null;
+
+function showUploadMessage(text, isError) {
+
+    uploadMessage.textContent = text;
+    uploadMessage.classList.toggle("error", !!isError);
+    uploadMessage.classList.add("show");
+
+    if (uploadMessageTimer) {
+        clearTimeout(uploadMessageTimer);
+    }
+
+    // Hide message after 5 seconds
+    uploadMessageTimer = setTimeout(function () {
+
+        uploadMessage.classList.remove("show");
+
+    }, 5000);
+
+}
 
 profileInput.addEventListener("change", function () {
 
     const file = this.files[0];
 
-    if (file) {
+    if (!file) {
+        return;
+    }
 
-        const reader = new FileReader();
 
-        reader.onload = function (event) {
+    // Remove backend error message
+    if (profilePhotoError) {
 
-            previewImage.src = event.target.result;
-
-            uploadMessage.innerHTML = "✅ Photo selected successfully.";
-
-            // Automatically hide the message after 5 seconds
-            setTimeout(function () {
-
-                uploadMessage.innerHTML = "";
-
-            }, 5000);
-
-        };
-
-        reader.readAsDataURL(file);
+        profilePhotoError.textContent = "";
 
     }
+
+
+    // Check image type
+    if (!file.type.startsWith("image/")) {
+
+        showUploadMessage("❌ Please select a valid image.", true);
+
+        this.value = "";
+
+        return;
+
+    }
+
+
+    // Preview uploaded image inside the circle
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+
+        previewImage.src = event.target.result;
+
+    };
+
+    reader.readAsDataURL(file);
+
+
+    // Success message
+    showUploadMessage("✅ Image uploaded successfully.", false);
 
 });
 
@@ -444,3 +485,72 @@ emailInput.addEventListener("input", function () {
     emailError.textContent = "";
 
 });
+
+// ==========================================
+// RE-RUN VALIDATION FOR VALUES RESTORED
+// AFTER A FAILED SUBMIT (duplicate email /
+// mobile, password mismatch, etc.)
+//
+// Email/mobile are skipped here: the backend
+// already shows "already registered" for them,
+// and re-running the (format-only) client
+// validation would immediately clear that message.
+// ==========================================
+
+[firstNameInput, lastNameInput, password, confirmPassword, securityAnswer]
+    .forEach(function (field) {
+
+        if (field.value) {
+
+            field.dispatchEvent(new Event("input"));
+
+        }
+
+    });
+
+// ==========================================
+// REGISTRATION SUCCESS POPUP
+// ==========================================
+
+const successModalOverlay = document.getElementById("successModalOverlay");
+
+if (successModalOverlay) {
+
+    const successModalClose = document.getElementById("successModalClose");
+
+    function hideSuccessModal() {
+
+        successModalOverlay.classList.add("hide");
+
+        setTimeout(function () {
+
+            successModalOverlay.remove();
+
+        }, 350);
+
+    }
+
+    // Auto-dismiss after 5 seconds
+    const successModalTimer = setTimeout(hideSuccessModal, 5000);
+
+    successModalClose.addEventListener("click", function () {
+
+        clearTimeout(successModalTimer);
+        hideSuccessModal();
+
+    });
+
+    // Dismiss when clicking outside the card
+    successModalOverlay.addEventListener("click", function (event) {
+
+        if (event.target === successModalOverlay) {
+
+            clearTimeout(successModalTimer);
+            hideSuccessModal();
+
+        }
+
+    });
+
+}
+
