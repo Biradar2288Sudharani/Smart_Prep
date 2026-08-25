@@ -77,6 +77,11 @@ LOGIN_REDIRECT_URL = "social_post_login"
 # rest of this app's simple <a> nav links.
 ACCOUNT_LOGOUT_ON_GET = True
 
+# Skip allauth's "Continue?" intermediate page and go straight to the
+# provider on click — clicking "Continue with Google" should land on
+# Google's own account picker immediately, not a Smart Prep confirm step.
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
 # GitHub doesn't always expose a public email, so make allauth request
 # it explicitly — social_post_login matches users to a Student by email.
 SOCIALACCOUNT_QUERY_EMAIL = True
@@ -89,6 +94,12 @@ SOCIALACCOUNT_PROVIDERS = {
             "key": "",
         },
         "SCOPE": ["profile", "email"],
+        # Google skips its "Allow access" consent screen once a user has
+        # approved this app before, and skips the account picker once
+        # the browser already has one active Google session — forcing
+        # both here keeps every sign-in showing the full picker-then-
+        # consent flow instead of silently reusing a prior approval.
+        "AUTH_PARAMS": {"prompt": "select_account consent"},
     },
     "github": {
         "APP": {

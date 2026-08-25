@@ -131,14 +131,18 @@ def social_post_login(request):
     """Landing spot after allauth finishes a Google or GitHub login.
 
     Links the social account to an existing Student by email, or —
-    for a first-time social sign-in — hands the user to the normal
-    register page with name/email prefilled so they only need to add
-    the fields the provider can't supply (mobile number, password,
-    photo, security question).
+    for a first-time social sign-in — auto-creates the Student right
+    here and sends the user to the login page with a success message.
+    No separate password-setup step: Google/GitHub already handled
+    email selection, password entry and 2-step verification on their
+    own screens, so the Student gets an unusable password (nobody can
+    log in with a manual password on this account — only this social
+    provider can authenticate it going forward).
 
-    Either way the Student still has to click the emailed verification
-    link before reaching home — social login only proves the email
-    address, not that this specific Student row has been verified.
+    Google/GitHub proving the user owns this email address counts as
+    verification on its own — no separate verification email for the
+    social path, even if the matching Student was originally created
+    through manual (non-social) registration and never verified.
     """
 
     if not request.user.is_authenticated:
@@ -153,33 +157,27 @@ def social_post_login(request):
 
         if not student.is_verified:
 
-            send_verification_email(request, student)
-
-            messages.error(
-                request,
-                "Please verify your email before signing in — we've just "
-                f"sent a fresh verification link to {student.email} "
-                f"(valid for {EMAIL_VERIFICATION_EXPIRY_MINUTES} minutes)."
-            )
-
-            return redirect("login")
+            student.is_verified = True
+            student.email_verification_token = None
+            student.save(update_fields=["is_verified", "email_verification_token"])
 
         request.session["student_id"] = student.id
 
         return redirect("home")
 
-    social_account = request.user.socialaccount_set.first()
+    Student.objects.create(
 
-    request.session["social_prefill"] = {
+        first_name=request.user.first_name,
+        last_name=request.user.last_name,
+        email=email,
+        password=make_password(None),
+        is_verified=True,
 
-        "first_name": request.user.first_name,
-        "last_name": request.user.last_name,
-        "email": email,
-        "provider": social_account.provider if social_account else None,
+    )
 
-    }
+    messages.success(request, "Your registration is completed. Please login.")
 
-    return redirect("register")
+    return redirect("login")
 
 def register_view(request):
 
@@ -296,13 +294,5 @@ def register_view(request):
         return redirect("register")
 
     request.session.pop(SESSION_PHOTO_KEY, None)
-
-    social_prefill = request.session.pop("social_prefill", None)
-
-    if social_prefill:
-        return render(request, "accounts/register.html", {
-            "form_data": social_prefill,
-            "social_prefill_provider": social_prefill.get("provider"),
-        })
 
     return render(request, "accounts/register.html")

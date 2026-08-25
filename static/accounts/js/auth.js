@@ -26,3 +26,18 @@ toggle.classList.add("fa-eye");
 }
 
 });
+
+
+const loginMessages = document.querySelectorAll(".login-message");
+
+loginMessages.forEach((message) => {
+
+    setTimeout(() => {
+
+        message.classList.add("login-message-hide");
+
+        setTimeout(() => message.remove(), 400);
+
+    }, 5000);
+
+});

@@ -1018,29 +1018,6 @@ select:hover {
 }
 
 /* ==========================================
-        GOOGLE PREFILL NOTICE
-========================================== */
-
-.social-prefill-notice {
-
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    justify-content: center;
-
-    background: #EFF6FF;
-    color: var(--primary-color);
-
-    padding: 12px 16px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-
-    font-size: 14px;
-    font-weight: 600;
-
-}
-
-/* ==========================================
         REGISTRATION SUCCESS POPUP
 ========================================== */
 

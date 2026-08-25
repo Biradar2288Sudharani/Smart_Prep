@@ -18,14 +18,16 @@ class Student(models.Model):
 
     mobile_number = models.CharField(
         max_length=10,
-        unique=True
+        unique=True,
+        blank=True,
+        null=True
     )
 
     password = models.CharField(max_length=255)
 
-    security_question = models.CharField(max_length=200)
+    security_question = models.CharField(max_length=200, blank=True, null=True)
 
-    security_answer = models.CharField(max_length=100)
+    security_answer = models.CharField(max_length=100, blank=True, null=True)
 
     terms_accepted = models.BooleanField(default=False)
 

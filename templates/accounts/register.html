@@ -13,17 +13,6 @@ Create Account | Smart Prep
     <div class="register-card">
         <h2>Create Your Account</h2>
         <p class="subtitle">Join Smart Prep and start your interview journey.</p>
-        {% if social_prefill_provider %}
-            <div class="social-prefill-notice">
-                {% if social_prefill_provider == "github" %}
-                    <i class="fa-brands fa-github"></i>
-                    Signed in with GitHub — just finish a few more details to create your account.
-                {% else %}
-                    <i class="fa-brands fa-google"></i>
-                    Signed in with Google — just finish a few more details to create your account.
-                {% endif %}
-            </div>
-        {% endif %}
         {% if messages %}
             <div class="success-modal-overlay" id="successModalOverlay">
                 <div class="success-modal-card">
