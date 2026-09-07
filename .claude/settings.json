@@ -71,7 +71,10 @@
       "Bash(powershell -NoProfile -Command \"Get-CimInstance Win32_Process -Filter \\\\\"ProcessId=11752\\\\\" | Select-Object ProcessId,CommandLine,ExecutablePath\")",
       "Bash(powershell -NoProfile -Command \"Get-CimInstance Win32_Process -Filter \\\\\"ProcessId=11752\\\\\" | Select-Object ParentProcessId\")",
       "Bash(curl -s -o /dev/null -w \"http_code=%{http_code}\\\\n\" \"http://127.0.0.1:8000/social/set-password/\")",
-      "Bash(curl -s -o /dev/null -w \"http_code=%{http_code}\\\\n\" \"http://127.0.0.1:8000/\")"
+      "Bash(curl -s -o /dev/null -w \"http_code=%{http_code}\\\\n\" \"http://127.0.0.1:8000/\")",
+      "Bash(venv/Scripts/python.exe manage.py runserver)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://127.0.0.1:8000/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://127.0.0.1:8000/ --max-time 2)"
     ],
     "additionalDirectories": [
       "c:\\Users\\ADMIN\\Desktop\\My_Projects\\Smart_Prep\\templates\\allauth"

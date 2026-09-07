@@ -95,11 +95,13 @@ SOCIALACCOUNT_PROVIDERS = {
         },
         "SCOPE": ["profile", "email"],
         # Google skips its "Allow access" consent screen once a user has
-        # approved this app before, and skips the account picker once
-        # the browser already has one active Google session — forcing
-        # both here keeps every sign-in showing the full picker-then-
-        # consent flow instead of silently reusing a prior approval.
-        "AUTH_PARAMS": {"prompt": "select_account consent"},
+        # approved this app before, skips the account picker once the
+        # browser already has one active Google session, and skips the
+        # password re-entry screen for that same reason — forcing all
+        # three here keeps every sign-in showing the full picker ->
+        # password -> consent flow instead of silently reusing a prior
+        # session/approval.
+        "AUTH_PARAMS": {"prompt": "select_account consent login"},
     },
     "github": {
         "APP": {
