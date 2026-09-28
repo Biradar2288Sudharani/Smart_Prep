@@ -296,3 +296,7 @@ def register_view(request):
     request.session.pop(SESSION_PHOTO_KEY, None)
 
     return render(request, "accounts/register.html")
+
+    request.session.pop(SESSION_PHOTO_KEY, None)
+
+    return render(request, "accounts/register.html")   
