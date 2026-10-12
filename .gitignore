@@ -1,0 +1,39 @@
+# Virtual Environment
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment Variables
+.env
+
+# Database
+db.sqlite3
+
+# Logs
+*.log
+
+# Media
+media/
+
+# Static Build
+staticfiles/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python cache
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Local env
+.env.*

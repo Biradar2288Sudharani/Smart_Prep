@@ -1,0 +1,123 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>{% block head_title %}{% endblock head_title %} | Smart Prep</title>
+
+    <link rel="icon" href="{% static 'accounts/images/logo.png' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet" href="{% static 'accounts/css/allauth.css' %}">
+
+    {% block extra_head %}
+    {% endblock extra_head %}
+
+</head>
+
+<body>
+    {% block body %}
+
+        <div class="allauth-shell">
+
+            <header class="allauth-topbar">
+
+                <a href="{% url 'home' %}" class="allauth-brand">
+                    <img src="{% static 'accounts/images/logo.png' %}" alt="Smart Prep logo">
+                    <span>Smart Prep</span>
+                </a>
+
+                <nav class="allauth-menu">
+
+                    {% if user.is_authenticated %}
+
+                        {% url 'account_email' as email_url_ %}
+                        {% if email_url_ %}
+                            <a href="{{ email_url_ }}"><i class="fa-solid fa-envelope"></i> {% trans "Change Email" %}</a>
+                        {% endif %}
+
+                        {% url 'account_change_password' as change_password_url_ %}
+                        {% if change_password_url_ %}
+                            <a href="{{ change_password_url_ }}"><i class="fa-solid fa-key"></i> {% trans "Change Password" %}</a>
+                        {% endif %}
+
+                        {% url 'socialaccount_connections' as connections_url_ %}
+                        {% if connections_url_ %}
+                            <a href="{{ connections_url_ }}"><i class="fa-solid fa-link"></i> {% trans "Account Connections" %}</a>
+                        {% endif %}
+
+                        {% url 'mfa_index' as mfa_url_ %}
+                        {% if mfa_url_ %}
+                            <a href="{{ mfa_url_ }}"><i class="fa-solid fa-shield-halved"></i> {% trans "Two-Factor Authentication" %}</a>
+                        {% endif %}
+
+                        {% url 'usersessions_list' as usersessions_list_url_ %}
+                        {% if usersessions_list_url_ %}
+                            <a href="{{ usersessions_list_url_ }}"><i class="fa-solid fa-clock-rotate-left"></i> {% trans "Sessions" %}</a>
+                        {% endif %}
+
+                        {% url 'account_logout' as logout_url_ %}
+                        {% if logout_url_ %}
+                            <a href="{{ logout_url_ }}" class="allauth-menu-cta"><i class="fa-solid fa-right-from-bracket"></i> {% trans "Sign Out" %}</a>
+                        {% endif %}
+
+                    {% else %}
+
+                        {% url 'account_login' as login_url_ %}
+                        {% if login_url_ %}
+                            <a href="{{ login_url_ }}"><i class="fa-solid fa-right-to-bracket"></i> {% trans "Sign In" %}</a>
+                        {% endif %}
+
+                        {% url 'account_signup' as signup_url_ %}
+                        {% if signup_url_ %}
+                            <a href="{{ signup_url_ }}" class="allauth-menu-cta"><i class="fa-solid fa-user-plus"></i> {% trans "Sign Up" %}</a>
+                        {% endif %}
+
+                    {% endif %}
+
+                </nav>
+
+            </header>
+
+            <main class="allauth-main">
+
+                {% if messages %}
+                    <div class="allauth-messages">
+                        {% for message in messages %}
+                            <div class="allauth-message{% if message.tags %} allauth-message-{{ message.tags }}{% endif %}">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span>{{ message }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="allauth-card">
+
+                    {% block content %}
+                    {% endblock content %}
+
+                </div>
+
+            </main>
+
+        </div>
+
+    {% endblock body %}
+
+    {% block extra_body %}
+    {% endblock extra_body %}
+
+</body>
+
+</html>
